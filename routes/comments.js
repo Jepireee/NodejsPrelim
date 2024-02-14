@@ -39,7 +39,7 @@ router.post('/comments/register', authenticateToken, async (req, res) => {
 router.get('/comments', authenticateToken, (req, res) => {
 
   try{
-    db.query('SELECT content, user_id, task_id FROM comments', (err, result) => {
+    db.query('SELECT context, user_id, task_id FROM comments', (err, result) => {
 
       if (err) {
         console.error('Error fetching items: ', err);
@@ -64,7 +64,7 @@ router.get('/comments/:id', authenticateToken, (req, res) => {
   }
 
   try {
-    db.query('SELECT content, user_id, task_id FROM comments WHERE id = ?', comment_id, (err, result) => {
+    db.query('SELECT context, user_id, task_id FROM comments WHERE id = ?', comment_id, (err, result) => {
 
       if (err) {
         console.error('Error fetching items:', err);
@@ -86,14 +86,14 @@ router.put('/comments/:id', authenticateToken, async (req, res) => {
 
   let comment_id =req.params.id;
 
-  const {content} = req.body;
+  const {context} = req.body;
   
-  if (!content) {
+  if (!context) {
     return res.status(400).send({ error: user, message: 'Please provide content' });
   }
   
   try {
-    db.query('UPDATE comments SET content = ? WHERE id = ?', [content, comment_id], (err, result, fields) => {
+    db.query('UPDATE comments SET context = ? WHERE id = ?', [context, comment_id], (err, result, fields) => {
       if (err) {
         console.error('Error updating item:', err);
         res.status(500).json({ message: 'Internal Server Error' });
