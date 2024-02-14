@@ -89,7 +89,7 @@ router.put('/comments/:id', authenticateToken, async (req, res) => {
   const {context} = req.body;
   
   if (!context) {
-    return res.status(400).send({ error: user, message: 'Please provide content' });
+    return res.status(400).send({ error: true, message: 'Please provide content' });
   }
   
   try {
