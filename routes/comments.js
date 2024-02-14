@@ -20,12 +20,12 @@ router.use(bodyParser.json());
 
 
 router.post('/comments/register', authenticateToken, async (req, res) => {
-  const { content, user_id, task_id } = req.body;
+  const { context, user_id, task_id } = req.body;
 
   try {
-    const insertCommentsQuery = 'INSERT INTO comments (content, user_id, task_id) VALUES (?, ?, ?)';
+    const insertCommentsQuery = 'INSERT INTO comments (context, user_id, task_id) VALUES (?, ?, ?)';
 
-    await db.promise().execute(insertCommentsQuery, [content, user_id, task_id]);
+    await db.promise().execute(insertCommentsQuery, [context, user_id, task_id]);
     res.status(201).json({ message: 'Comment registered successfully' });
 
   } catch (error) {
