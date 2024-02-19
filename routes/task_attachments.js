@@ -23,7 +23,7 @@ router.post('/attachments/register', authenticateToken, async (req, res) => {
   const { file_name, file_path, task_id } = req.body;
 
   try {
-    const insertAttachmentQuery = 'INSERT INTO task_assignees (file_name, file_path, task_id) VALUES (?, ?, ?)';
+    const insertAttachmentQuery = 'INSERT INTO task_attachments (file_name, file_path, task_id) VALUES (?, ?, ?)';
 
     await db.promise().execute(insertAttachmentQuery, [file_name, file_path, task_id]);
     res.status(201).json({ message: 'File attached successfully' });
